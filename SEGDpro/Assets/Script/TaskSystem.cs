@@ -6,6 +6,11 @@ public class Task : MonoBehaviour
     public float stressPerSecond = 2f;
     public bool isCompleted = false;
 
+    void Start()
+    {
+        TaskUIManager.Instance.AddTask(this);
+    }
+
     void Update()
     {
         if (!isCompleted)
@@ -17,7 +22,11 @@ public class Task : MonoBehaviour
     public void CompleteTask()
     {
         isCompleted = true;
+
         StressManager.Instance.ReduceStress(15f);
+
+        TaskUIManager.Instance.RemoveTask(this);
+
         gameObject.SetActive(false);
     }
 }
